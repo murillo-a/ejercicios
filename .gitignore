@@ -1,5 +1,7 @@
 # Compiled class file
 *.class
+*.classpath // del eclipse
+*.project // del eclipse
 
 # Log file
 *.log
