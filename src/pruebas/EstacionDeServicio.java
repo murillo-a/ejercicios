@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class EstacionDeServicio {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { //se podrían crear vectores String para tipo de comb y nombredeestacion
+		
 
 		int combustibles = 3; // cuantos tipos de combustible hay?
 		int estaciones = 3;
@@ -15,10 +16,13 @@ public class EstacionDeServicio {
 		int estacion;
 		int i;
 		int j;
-		float totalxEst[] = new float[estaciones];
+		float totalxEst[] = new float[estaciones]; // o, = { 0, 0, 0 };
 		float totalxTipo[] = new float[combustibles];
 		float mayor = 0;
-		String masVendida;
+		float masVendida;
+		int indiceMasVendido = 0;
+		String nombresEst[] = {"Estacion A", "Estacion B", "Estacion C"}; //usar para mostrar totales, falta por hacer
+		String naftas[] = {"Nafta Super", "Nafta Premium", "Gasoil"};
 
 		for (i = 0; i < 3; i++) {
 			totalxEst[i] = 0;
@@ -58,46 +62,37 @@ public class EstacionDeServicio {
 				total = litros * 10;
 				break;
 			}
-			totalxTipo[tipo] += total;
 
 			System.out.println("Ingrese el nro de estación:");
 			System.out.println("(0 = Estación A, 1 = Estación B, 2 = Estación C)");
 			estacion = scan.nextInt();
+			
+			matriz[tipo][estacion] += total;
+			totalxTipo[tipo] += total;
 			totalxEst[estacion] += total;
+			
 			System.out.println("Cantidad de litros: ");
 			System.out.println("(0 = finalizar programa)");
 			litros = scan.nextFloat();
 
 		}
 
-		for (i = 0; i < 3; i++) {
-			for (j = 1; j < 3; j++) {
-				if (totalxTipo[i] > totalxTipo[j]) {
+		for (i = 0; i < totalxTipo.length; i++) {
+				if ( totalxTipo[i] > mayor ) {
 					mayor = totalxTipo[i];
-				}
-				mayor = totalxTipo[j];
+					indiceMasVendido = i;
 			}
-		}
 
-		// hay alguna forma mas eficiente de unir la posicion del array con el tipo
-		// de nafta? un switch case serviria pero no se puede hacer switch con var float
-		// si fuera un array mas grande?
-
-		if (mayor == totalxTipo[0]) {
-			masVendida = "Super";
-		} else if (mayor == totalxTipo[1]) {
-			masVendida = "Premium";
-		} else {
-			masVendida = "gasoil";
-		}
+		masVendida = totalxTipo[indiceMasVendido];
 
 		System.out.println("Total vendido por estación:");
 		System.out.println("Estación A: " + totalxEst[0]);
 		System.out.println("Estación B: " + totalxEst[1]);
-		System.out.println("Estación C: " + totalxEst[2]);
+		System.out.println("Estación C: " + totalxEst[2]+'\n');
 
-		System.out.println("La nafta más vendida es: " + masVendida);
+		System.out.println("La nafta más vendida es: " + naftas[indiceMasVendido] + ": " + masVendida);
 
 		scan.close();
 	}
+}
 }
